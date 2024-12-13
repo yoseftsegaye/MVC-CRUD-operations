@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Project</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+</head>
+
+<body class="part-container">
+    <h1>Search for product by name</h1>
+    <form id="userForm" action="/products" method="GET"
+        onsubmit="this.action = '/products/' + encodeURIComponent(this.userInput.value);">
+        <input type="text" id="userInput" class="input" name="value" placeholder="Search here..." maxlength="20"
+            required>
+        <button type="submit" class="Search">Search</button>
+    </form>
+
+    <script>
+        window.addEventListener("load", function () {
+            const form = document.getElementById("userForm");
+            form.action = "/products";
+        });
+    </script>
+
+</body>
+
+</html>

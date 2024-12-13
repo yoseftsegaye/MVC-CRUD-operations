@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Project</title>
+    <link rel="stylesheet" href="../css/style.css" />
+</head>
+
+<body class="part-container">
+    <h1>Filter products by name</h1>
+    <form id="userForm" onsubmit="updateAction(event)">
+        <input type="text" id="userInput" class="input" name="value" placeholder="Search here..." maxlength="20"
+            required>
+        <button type="Search" class="Search">Search</button>
+    </form>
+
+    <script>
+        function updateAction(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const userInput = document.getElementById("userInput").value;
+            const url = '/products?filter=productName&value=' + encodeURIComponent(userInput);
+
+            window.location.href = url; // Redirect to the dynamically built URL
+        }
+    </script>
+</body>
+
+
+</html>

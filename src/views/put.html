@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Project</title>
+    <link rel="stylesheet" href="../css/style.css" />
+</head>
+
+<body class="part-container">
+    <h1>Update product fully</h1>
+    <form id="PostUserForm">
+        <input type="text" id="userInput1" class="input" name="productName" placeholder="Enter Existing Product Name"
+            maxlength="20" required>
+        <input type="text" id="userInput2" class="input" name="NewProductName" placeholder="Enter New Product Name"
+            maxlength="20" required>
+        <input type="text" id="userInput3" class="input" name="displayName" placeholder="Enter Display Name"
+            maxlength="20">
+        <input type="text" id="userInput4" class="input" name="price" placeholder="Enter The Price" maxlength="20"
+            required>
+        <button type="submit" class="PostSubmit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('PostUserForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const userInput1 = document.getElementById("userInput1").value;
+            const userInput2 = document.getElementById("userInput2").value;
+            const userInput3 = document.getElementById("userInput3").value;
+            const userInput4 = document.getElementById("userInput4").value;
+
+            // Create the data object to send in the POST request
+            const formData = {
+                productName: userInput2,
+                displayName: userInput3,
+                price: userInput4
+            };
+
+            // Use fetch to send a POST request
+            fetch(`/products/put/${userInput1}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData) // Send data as JSON
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text(); // Read the response as text (HTML)
+                    } else {
+                        throw new Error('Failed to add product');
+                    }
+                })
+                .then(htmlContent => {
+                    // Replace the entire page content with the received HTML
+                    document.body.innerHTML = htmlContent;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('There was an error adding the product.');
+                });
+        });
+    </script>
+
+</body>
+
+</html>

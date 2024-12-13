@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Project</title>
+    <link rel="stylesheet" href="../css/style.css" />
+</head>
+
+<body class="part-container">
+    <h1>Delete product by name</h1>
+    <form id="PostUserForm">
+        <input type="text" id="userInput1" class="input" name="productName"
+            placeholder="Enter product name to be deleted" maxlength="20" required>
+        <button type="submit" class="PostSubmit">Delete</button>
+    </form>
+
+    <script>
+        document.getElementById('PostUserForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const userInput1 = document.getElementById("userInput1").value;
+
+            // Use fetch to send a DELETE request
+            fetch(`/products/delete/${userInput1}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then(response => {
+                if (response.ok) {
+                    return response.text(); // Read the response as text (HTML)
+                } else {
+                    throw new Error('Failed to add product');
+                }
+            })
+                .then(htmlContent => {
+                    // Replace the entire page content with the received HTML
+                    document.body.innerHTML = htmlContent;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('There was an error adding the product.');
+                });
+        });
+    </script>
+
+</body>
+
+</html>
